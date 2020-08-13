@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200813090906) do
+ActiveRecord::Schema.define(version: 20200813103930) do
 
   create_table "attendances", force: true do |t|
     t.integer  "student_id"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 20200813090906) do
     t.datetime "remember_created_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "userable_type"
+    t.integer  "userable_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

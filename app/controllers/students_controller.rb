@@ -4,7 +4,11 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    if current_user.is_teacher?
+      @students = Student.all
+    elsif current_user.is_student?
+      @students = Student.where(id: current_user.userable.id)
+      end
   end
 
   # GET /students/1
