@@ -78,4 +78,7 @@ class StudentsController < ApplicationController
     def student_params
       params.require(:student).permit(:name, :roll_number, :standard_id)
     end
+    def mark_attendance_form
+  end
+
 end

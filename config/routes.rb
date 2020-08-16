@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
   resources :subjects
 
-  resources :students
+  resources :students do 
+    member do
+      get :mark_attendance_form
+    end
+  end
+
 
   resources :standards
 
