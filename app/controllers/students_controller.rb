@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy, :mark_attendance_form, :mark_attendance]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :mark_attendance_form, :mark_attendance, :show_all_attendance]
   before_action :set_subjects, only: [:mark_attendance_form, :mark_attendance]
 
   # GET /students
@@ -88,6 +88,9 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to students_url, notice: 'Attendance Submitted successfully.' }
     end
+  end
+  def show_all_attendance
+    @current_month_attendance = @student.attendances.where("date > ? AND date < ?", Time.now.beginning_of_month, Time.now.end_of_month)
   end
 
   private

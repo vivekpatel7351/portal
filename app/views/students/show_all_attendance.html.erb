@@ -1,0 +1,21 @@
+<h1>Listing Attendance</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Subject</th>
+      <th>Attendance Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @current_month_attendance.each do |attendance| %>
+      <tr>
+      	<td><%= attendance.date.to_date %></td>
+        <td><%= attendance.subject.try(:name) %></td>
+        <td><%= attendance.status? ? 'PRESENT' : 'ABSENT' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

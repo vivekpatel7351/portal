@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       get :mark_attendance_form
       post :mark_attendance
+      get :show_all_attendance
     end
   end
 
