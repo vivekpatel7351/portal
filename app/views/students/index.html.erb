@@ -1,4 +1,16 @@
 <h1>Listing students</h1>
+<% if current_user.is_teacher?%>
+  <h1>Search Student</h1>
+  <%= form_tag students_path, :method => 'get' do %>
+    <p>
+      <%= hidden_field_tag 'search_student' %>
+      <%= text_field_tag :roll_number, params[:roll_number], placeholder: "Please Enter Roll Number", required: true %>
+      <%=  select_tag "standard_id", options_from_collection_for_select(Standard.all, "id", "name"), prompt: "Please Select Standard", required: true %>
+      <%= submit_tag "Search", :name => nil %>
+      <%= link_to "<button>Clear Filter</button>".html_safe, students_path, :id=>"clear_filter", :class=>"clear_filter" %>
+    </p>
+  <% end %>
+<% end %>
 
 <table>
   <thead>

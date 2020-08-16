@@ -5,12 +5,15 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if current_user.is_teacher?
-      @students = Student.all
+      if params.has_key?(:search_student)
+        @students = Student.where(roll_number: params[:roll_number], standard_id: params[:standard_id])
+      else
+        @students = Student.all
+      end  
     elsif current_user.is_student?
       @students = Student.where(id: current_user.userable.id)
-      end
+    end  
   end
-
   # GET /students/1
   # GET /students/1.json
   def show
