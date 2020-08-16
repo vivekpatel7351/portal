@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :mark_attendance_form, :mark_attendance]
+  before_action :set_subjects, only: [:mark_attendance_form, :mark_attendance]
 
   # GET /students
   # GET /students.json
@@ -67,11 +68,35 @@ class StudentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def mark_attendance_form
+  
+  end
+    def mark_attendance
+    @subjects.each do |subject|
+      if params[:subject_ids].include?(subject.id.to_s)
+        attendance = @student.attendances.where(date: params[:attendance_date]).first_or_initialize
+        attendance.status = true
+        attendance.subject = subject 
+        attendance.save
+      else
+        attendance = @student.attendances.where(date: params[:attendance_date]).first_or_initialize
+        attendance.status = false
+        attendance.subject = subject 
+        attendance.save
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to students_url, notice: 'Attendance Submitted successfully.' }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
+    end
+    def set_subjects
+      @subjects = Subject.where(standard_id: @student.standard_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -79,6 +104,8 @@ class StudentsController < ApplicationController
       params.require(:student).permit(:name, :roll_number, :standard_id)
     end
     def mark_attendance_form
+  
   end
+
 
 end

@@ -1,1 +1,19 @@
+<h1>Mark Attendance</h1>
+<%= form_tag mark_attendance_student_path(@student), :method => 'post' do %>
+  <%= date_field_tag(:attendance_date, Date.today) %>
 
+  <ul>
+    <% @subjects.each do |subject| %>
+        <li>
+          <%= check_box_tag 'subject_ids[]', subject.id -%>
+          <%= h subject.name -%>
+        </li>
+    <% end %>
+  </ul>
+
+
+  <br/ >
+  <br/ >
+  <br/ >
+  <%= submit_tag "Submit Attendance", :name => nil %>
+<% end %>

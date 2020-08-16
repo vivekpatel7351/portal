@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :students do 
     member do
       get :mark_attendance_form
+      post :mark_attendance
     end
   end
 
